@@ -1,5 +1,4 @@
-import {health, sortHealth, Character} from '../basic.js';
-import Bowman from '../Bowman.js';
+import {orderByProps, getAttack} from '../basic.js';
 
 
 
@@ -8,75 +7,45 @@ test("basic test", () => {
     expect(result).toBe(4);
 });
 
-test("health test", () => {
-    let result = health({name: 'Маг', health: 90});
-    expect(result).toBe("healthy");
-    result = health({name: 'Маг', health: 50});
-    expect(result).toBe("wounded");
-    result = health({name: 'Маг', health: 15});
-    expect(result).toBe("critical");
-});
-
-test("health sort test", () => {
-    let result = sortHealth([
-      {name: 'мечник', health: 10},
-      {name: 'маг', health: 100},
-      {name: 'лучник', health: 80},
-      ]);
+test("prop sort test", () => {
+    let result = orderByProps({name: 'мечник', health: 10, level: 2, attack: 80, defence: 40},  ["name", "level"]);
 
     expect(result).toEqual([
-      {name: 'маг', health: 100},
-      {name: 'лучник', health: 80},
-      {name: 'мечник', health: 10},
-    ]);
+      {key: "name", value: "мечник"},
+      {key: "level", value: 2},
+      {key: "attack", value: 80},
+      {key: "defence", value: 40},
+      {key: "health", value: 10}]);
+
+    result = orderByProps({name: 'мечник', health: 10, level: 2, defence: 40, attack: 80},  ["name", "level"]);
+
+    expect(result).toEqual([
+      {key: "name", value: "мечник"},
+      {key: "level", value: 2},
+      {key: "attack", value: 80},
+      {key: "defence", value: 40},
+      {key: "health", value: 10}]);
 });
 
+test("description test", () => {
 
+    let result = getAttack ({
+      name: 'Лучник',
+      type: 'Bowman',
+      health: 50,
+      level: 3,
+      attack: 40,
+      defence: 10,
+      special: [
+        {
+          id: 9,
+          name: 'Нокаутирующий удар',
+          icon: 'http://...',
+          // <- обратите внимание, описание "засекречено"
+        },
+      ],});
+    
+      console.log(result);
 
-
-test("Character test", () => {
-    let result = new Character('Вася', 'Bowman');
-    expect(result.type).toBe('Bowman');
-    result = new Character('Вася', 'Swordsman');
-    expect(result.type).toBe('Swordsman');
-    result = new Character('Вася', 'Magician');
-    expect(result.type).toBe('Magician');
-    result = new Character('Вася', 'Daemon');
-    expect(result.type).toBe('Daemon');
-    result = new Character('Вася', 'Undead');
-    expect(result.type).toBe('Undead');
-    result = new Character('Вася', 'Zombie');
-    expect(result.type).toBe('Zombie');
-
-});
-
-
-test('check Character error name', () => {
-  expect(() => {
-    const char = new Character('b', 'Character');
-  }).toThrowError('Name length is not correct');
-});
-
-test('check Character error type', () => {
-  expect(() => {
-    const char = new Character('abcd', 'Character');
-  }).toThrowError('Type is not correct');
-});
-
-test('check level up', () => {
-  const char = new Character('abcd', 'Bowman');
-  char.levelUp();
-  expect({level: char.level, health: char.health}).toEqual({level: 2, health: 100});
-  char.health = 0;
-  expect(() => {
-    char.levelUp();
-  }).toThrowError('Level up for dead is not allowed');
-});
-
-test("Character damage test", () => {
-    let result = new Bowman('Вася', 'Bowman');
-    result.damage(20);
-    expect(result.health).toBe(85);
-    result.damage(1000);
-    expect(result.health).toBe(0);
+      expect(result[0].desription).toEqual('Описание недоступно');
 });
