@@ -8,19 +8,19 @@ test("basic test", () => {
 });
 
 test("prop sort test", () => {
-    let result = orderByProps({name: 'мечник', health: 10, level: 2, attack: 80, defence: 40},  ["name", "level"]);
+    let result = orderByProps({name: 'РјРµС‡РЅРёРє', health: 10, level: 2, attack: 80, defence: 40},  ["name", "level"]);
 
     expect(result).toEqual([
-      {key: "name", value: "мечник"},
+      {key: "name", value: "РјРµС‡РЅРёРє"},
       {key: "level", value: 2},
       {key: "attack", value: 80},
       {key: "defence", value: 40},
       {key: "health", value: 10}]);
 
-    result = orderByProps({name: 'мечник', health: 10, level: 2, defence: 40, attack: 80},  ["name", "level"]);
+    result = orderByProps({name: 'РјРµС‡РЅРёРє', health: 10, level: 2, defence: 40, attack: 80},  ["name", "level"]);
 
     expect(result).toEqual([
-      {key: "name", value: "мечник"},
+      {key: "name", value: "РјРµС‡РЅРёРє"},
       {key: "level", value: 2},
       {key: "attack", value: 80},
       {key: "defence", value: 40},
@@ -30,7 +30,7 @@ test("prop sort test", () => {
 test("description test", () => {
 
     let result = getAttack ({
-      name: 'Лучник',
+      name: 'Р›СѓС‡РЅРёРє',
       type: 'Bowman',
       health: 50,
       level: 3,
@@ -39,13 +39,13 @@ test("description test", () => {
       special: [
         {
           id: 9,
-          name: 'Нокаутирующий удар',
+          name: 'РќРѕРєР°СѓС‚РёСЂСѓСЋС‰РёР№ СѓРґР°СЂ',
           icon: 'http://...',
-          // <- обратите внимание, описание "засекречено"
+          // <- РѕР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, РѕРїРёСЃР°РЅРёРµ "Р·Р°СЃРµРєСЂРµС‡РµРЅРѕ"
         },
       ],});
     
       console.log(result);
 
-      expect(result[0].desription).toEqual('Описание недоступно');
+      expect(result[0].description).toEqual('РћРїРёСЃР°РЅРёРµ РЅРµРґРѕСЃС‚СѓРїРЅРѕ');
 });

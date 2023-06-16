@@ -32,13 +32,23 @@ export function orderByProps(obj, arr) {
 }
 
 export function getAttack({ special, ...otherParams } = {}) {
-  const mas = special;
-  for (let i = 0; i < mas.length; i += 1) {
-    const attributes = mas[i];
+  const mas = [];
+  for (let i = 0; i < special.length; i += 1) {
+    //    const attributes = mas[i];
     //    console.log(attributes);
-    if (Object.prototype.hasOwnProperty.call(attributes, 'desription') === false) {
-      attributes.desription = 'Îïèñàíèå íåäîñòóïíî';
-    }
+    // if (Object.prototype.hasOwnProperty.call(attributes, 'desription') === false) {
+    //  attributes.desription = 'ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð½ÐµÐ´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾';
+    // }
+    const {
+      id, name, icon, description = 'ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð½ÐµÐ´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾',
+    } = special[i];
+    console.log(id, name, icon, description);
+    mas.push({
+      id,
+      name,
+      icon,
+      description,
+    });
   }
   console.log(otherParams);
 
@@ -46,11 +56,11 @@ export function getAttack({ special, ...otherParams } = {}) {
 }
 
 const obj = {
-  name: 'ìå÷íèê', health: 10, level: 2, attack: 80, defence: 40,
+  name: 'Ð¼ÐµÑ‡Ð½Ð¸Ðº', health: 10, level: 2, attack: 80, defence: 40,
 };
 
 const character = {
-  name: 'Ëó÷íèê',
+  name: 'Ð›ÑƒÑ‡Ð½Ð¸Ðº',
   type: 'Bowman',
   health: 50,
   level: 3,
@@ -59,15 +69,15 @@ const character = {
   special: [
     {
       id: 8,
-      name: 'Äâîéíîé âûñòðåë',
+      name: 'Ð”Ð²Ð¾Ð¹Ð½Ð¾Ð¹ Ð²Ñ‹ÑÑ‚Ñ€ÐµÐ»',
       icon: 'http://...',
-      description: 'Äâîéíîé âûñòðåë íàíîñèò äâîéíîé óðîí',
+      description: 'Ð”Ð²Ð¾Ð¹Ð½Ð¾Ð¹ Ð²Ñ‹ÑÑ‚Ñ€ÐµÐ» Ð½Ð°Ð½Ð¾ÑÐ¸Ñ‚ Ð´Ð²Ð¾Ð¹Ð½Ð¾Ð¹ ÑƒÑ€Ð¾Ð½',
     },
     {
       id: 9,
-      name: 'Íîêàóòèðóþùèé óäàð',
+      name: 'ÐÐ¾ÐºÐ°ÑƒÑ‚Ð¸Ñ€ÑƒÑŽÑ‰Ð¸Ð¹ ÑƒÐ´Ð°Ñ€',
       icon: 'http://...',
-      // <- îáðàòèòå âíèìàíèå, îïèñàíèå "çàñåêðå÷åíî"
+      // <- Ð¾Ð±Ñ€Ð°Ñ‚Ð¸Ñ‚Ðµ Ð²Ð½Ð¸Ð¼Ð°Ð½Ð¸Ðµ, Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ "Ð·Ð°ÑÐµÐºÑ€ÐµÑ‡ÐµÐ½Ð¾"
     },
   ],
 };
